@@ -1,15 +1,15 @@
-<mat-toolbar color="light">
+<mat-toolbar class="bg-info">
   <mat-toolbar-row>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" >
+    <button mat-icon-button class="mr-2 btn btn-dark" aria-label="Example icon-button with menu icon" mat-button [matMenuTriggerFor]="menu">
       <mat-icon aria-hidden="false" aria-label="Example home icon">menu</mat-icon>
     </button>
-    <!-- <mat-menu #menu="matMenu">
-      <button mat-menu-item>Item 1</button>
-      <button mat-menu-item>Item 2</button>
-    </mat-menu> -->
-    <span class="mr-2"></span>
+    <mat-menu #menu="matMenu" class="mt-10  bg-dark">
+      <button  mat-menu-item>Generate Data</button>
+      <button  mat-menu-item>View duration</button>
+    </mat-menu>
     <span>My application</span>
-    <span class="example-spacer"></span>
-    
+    <span class="spacer"></span>
+    <span>Logged as: bogdan</span>
+    <button class="ml-2 btn btn-dark" (click)="onLogoutClick()" mat-button>Logout</button>
   </mat-toolbar-row>
   </mat-toolbar>

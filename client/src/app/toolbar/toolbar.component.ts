@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {store, logoutCurrentUser} from '../store'; 
+
 
 @Component({
   selector: 'app-toolbar',
@@ -10,6 +12,10 @@ export class ToolbarComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onLogoutClick(){
+    store.dispatch(logoutCurrentUser());
   }
 
 }
