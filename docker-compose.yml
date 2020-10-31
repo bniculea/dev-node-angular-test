@@ -5,9 +5,27 @@ services:
     image: mongo
     ports:
       - 27017:27017
+    networks:
+      - application-network
   mongo-express:
     image: mongo-express
     depends_on:
       - mongo
     ports:
-      - 8081:8081
+      - 8888:8081
+    networks:
+      - application-network
+  hapi-server:
+    build:
+      context: ./server/
+      dockerfile: Dockerfile
+    image: hapi-server/latest
+    depends_on:
+      - mongo
+    ports:
+      - 3000:3000
+    networks:
+      - application-network
+networks:
+  application-network:
+    driver: bridge
