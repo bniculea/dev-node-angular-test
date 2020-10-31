@@ -15,5 +15,6 @@
   "bugs": {
     "url": "https://github.com/bniculea/dev-node-angular-test/issues"
   },
-  "homepage": "https://github.com/bniculea/dev-node-angular-test#readme"
+  "homepage": "https://github.com/bniculea/dev-node-angular-test#readme",
+  "dependencies": {}
 }

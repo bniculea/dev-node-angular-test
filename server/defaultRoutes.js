@@ -1,4 +1,5 @@
 "use strict";
+const Mongoose = require("mongoose");
 
 const defaultRoutes = {
   name: "defaultRoutes",
@@ -6,9 +7,13 @@ const defaultRoutes = {
   register: async function (server, options) {
     server.route({
       method: "GET",
-      path: "/",
-      handler: function (request, h) {
-        return "Hello from the TTY side";
+      path: "/health",
+      handler: async (req, h) => {
+        if (Mongoose.connection.readyState === 1) {
+          return h.response("OK").code(200);
+        } else {
+          return h.response().code(503);
+        }
       },
     });
   },
