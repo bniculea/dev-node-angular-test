@@ -1,5 +1,7 @@
 "use strict";
 const Mongoose = require("mongoose");
+const User = require("./db/models/User");
+const { generateRandomUsers } = require("./db/data");
 
 const defaultRoutes = {
   name: "defaultRoutes",
@@ -13,6 +15,19 @@ const defaultRoutes = {
           return h.response("OK").code(200);
         } else {
           return h.response().code(503);
+        }
+      },
+    });
+
+    server.route({
+      method: "POST",
+      path: "/create",
+      handler: async (req, h) => {
+        try {
+          await User.insertMany(generateRandomUsers());
+          return h.response("CREATED").code(201);
+        } catch (err) {
+          return h.response("COULD NOT CREATE").code(503);
         }
       },
     });

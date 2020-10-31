@@ -20,8 +20,9 @@ const start = async function () {
   console.log(`Server running at: ${server.info.uri}`);
 };
 
-mongoose.connect("mongodb://localhost:27017/", {
+mongoose.connect("mongodb://localhost:27017/test", {
   useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
 
 start();
