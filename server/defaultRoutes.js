@@ -17,9 +17,11 @@ const defaultRoutes = {
       path: "/health",
       handler: async (req, h) => {
         if (Mongoose.connection.readyState === 1) {
-          return h.response("OK").code(200);
+          const response = { mongoState: "UP" };
+          return h.response(response).code(200);
         } else {
-          return h.response().code(503);
+          const response = { mongoState: "DOWN" };
+          return h.response(response).code(503);
         }
       },
     });
