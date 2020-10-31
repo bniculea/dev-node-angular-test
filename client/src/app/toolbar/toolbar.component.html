@@ -9,7 +9,7 @@
     </mat-menu>
     <span>My application</span>
     <span class="spacer"></span>
-    <span *ngIf="this.isUserLoggedIn">Logged as: bogdan</span>
+    <span *ngIf="this.isUserLoggedIn">Logged as: {{loggedUser}}</span>
     <button *ngIf="this.isUserLoggedIn" class="ml-2 btn btn-dark" (click)="onLogoutClick()" mat-button>Logout</button>
   </mat-toolbar-row>
   </mat-toolbar>

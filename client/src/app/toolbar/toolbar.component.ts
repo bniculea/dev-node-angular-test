@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class ToolbarComponent implements OnInit {
   isUserLoggedIn:Boolean = false;
+  loggedUser:string = null;
   constructor(private router: Router) { }
 
   ngOnInit(): void {
@@ -26,6 +27,7 @@ export class ToolbarComponent implements OnInit {
   updateFromState(){
     const state = store.getState();
     this.isUserLoggedIn = !!state.loggedUser;
+    this.loggedUser = this.isUserLoggedIn ? state.loggedUser.username : null;
   }
 
 }
