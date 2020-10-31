@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {store, logoutCurrentUser} from '../store'; 
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -8,14 +9,23 @@ import {store, logoutCurrentUser} from '../store';
   styleUrls: ['./toolbar.component.css']
 })
 export class ToolbarComponent implements OnInit {
-
-  constructor() { }
+  isUserLoggedIn:Boolean = false;
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+    store.subscribe(()=> {
+      this.updateFromState();
+    })
   }
 
   onLogoutClick(){
     store.dispatch(logoutCurrentUser());
+    this.router.navigate(['login']);
+  }
+
+  updateFromState(){
+    const state = store.getState();
+    this.isUserLoggedIn = !!state.loggedUser;
   }
 
 }

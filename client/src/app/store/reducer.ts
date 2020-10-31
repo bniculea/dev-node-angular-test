@@ -3,10 +3,7 @@ import {AppState} from './AppState';
 import {LOGIN_USER, LOGOUT_USER} from './actions';
 
 const initialState: AppState = {
-    loggedUser: {
-        username: "bogdam",
-        password: "admin"
-    }
+    loggedUser: null
 }
 
 function updateLoggedUser(state, action): AppState {
