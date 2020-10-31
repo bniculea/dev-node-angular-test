@@ -1,11 +1,16 @@
 "use strict";
 const Mongoose = require("mongoose");
 const User = require("./db/models/User");
-const { generateRandomUsers } = require("./db/data");
+const {
+  generateRandomUsers,
+  computeAverageOfAgePerUserCountry,
+} = require("./db/data");
+const { performance } = require("perf_hooks");
 
 const defaultRoutes = {
   name: "defaultRoutes",
   version: "1.0.0",
+
   register: async function (server, options) {
     server.route({
       method: "GET",
@@ -28,6 +33,25 @@ const defaultRoutes = {
           return h.response("CREATED").code(201);
         } catch (err) {
           return h.response("COULD NOT CREATE").code(503);
+        }
+      },
+    });
+
+    server.route({
+      method: "GET",
+      path: "/time",
+      handler: async (req, h) => {
+        try {
+          const t0 = performance.now();
+          const _ = await computeAverageOfAgePerUserCountry();
+          const t1 = performance.now();
+          return h.response(t1 - t0).code(200);
+        } catch (err) {
+          return h
+            .response(
+              "Something bad happened on our side! Please try again later."
+            )
+            .code(503);
         }
       },
     });
