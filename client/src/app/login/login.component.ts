@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {HapiService} from '../hapi.service';
+import {store, loginUser} from '../store'; 
+import { User } from '../store/User';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +15,8 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
   loading = false;
   submitted = false;
-
+  loggedUser:User = null;
+  
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -32,25 +35,25 @@ export class LoginComponent implements OnInit {
   get f() { return this.form.controls; }
 
 
-  onSubmit() {
+  onSubmit(event: any) {
+    //TODO see if we still need it.
     this.submitted = true;
-
-
     if (this.form.invalid) {
         return;
     }
-    
     this.hapiService.checkBackendHealth()
       .subscribe(response => {
         const status = response.status;
         if(status === 200) {
+          const username = event.target.username.value;
+          const password = event.target.password.value;
+          const user = <User>{username, password};
+          store.dispatch(loginUser(user));
           this.router.navigate(['home'])
         }else {
           alert(`buba: ${status}`);
         }
       })
-
-
 }
 
 }
