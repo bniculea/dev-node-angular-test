@@ -26,6 +26,13 @@ services:
       - 3000:3000
     networks:
       - application-network
+  client:
+    build:
+      context: ./client/
+      dockerfile: Dockerfile
+    image: client-app
+    ports:
+      - 9000:80
 networks:
   application-network:
     driver: bridge
