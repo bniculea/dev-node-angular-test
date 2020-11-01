@@ -21,4 +21,9 @@ import { Observable } from 'rxjs';
       const url = `${this.backendApi}/create`;
       return this.http.post<Config>(url,{}, {observe:'response'});
     }
+
+    getAggregationTime():Observable<HttpResponse<Config>>{
+      const url = `${this.backendApi}/time`;
+      return this.http.get<Config>(url, {observe: 'response'});
+    }
 }

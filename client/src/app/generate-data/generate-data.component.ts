@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {store} from '../store'; 
 import { Router } from '@angular/router';
 import {HapiService} from '../hapi.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 
 @Component({
@@ -13,7 +14,8 @@ export class GenerateDataComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private hapiService: HapiService
+    private hapiService: HapiService,
+    private matSnackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -22,15 +24,18 @@ export class GenerateDataComponent implements OnInit {
     }
   }
 
-  async onGenerateDataClick(){
-    await this.hapiService.generateData()
+  onGenerateDataClick(){
+    this.hapiService.generateData()
       .subscribe(
         response => {
-          alert("Data was generated");
+          this.matSnackBar.open("Data was generated", "Success", {
+            duration: 1000,
+          });
         },
         error => {
-          debugger;
-          alert("Nu mere :(" + error);
+          this.matSnackBar.open("There was a problem while generating data", "Error", {
+            duration: 2000,
+          });
         }
       )
   }

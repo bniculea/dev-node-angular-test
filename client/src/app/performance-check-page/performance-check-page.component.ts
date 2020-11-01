@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {store} from '../store'; 
 import { Router } from '@angular/router';
+import {HapiService} from '../hapi.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 
 @Component({
@@ -10,12 +12,39 @@ import { Router } from '@angular/router';
 })
 export class PerformanceCheckPageComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  duration: number;
+
+  constructor(
+      private router: Router,    
+      private hapiService: HapiService,
+      private matSnackBar: MatSnackBar
+    ) { }
 
   ngOnInit(): void {
     if(!store.getState().loggedUser){
       this.router.navigate(['login'])
+    } else {
+      this.getDuration();
     }
+  }
+
+  recheckDuration(){
+    this.getDuration();
+  }
+
+  getDuration(){
+    this.hapiService.getAggregationTime()
+    .subscribe(response=> {
+      this.duration = response.body.duration;
+      this.matSnackBar.open("Successfully refreshed the duration", "Success", {
+        duration: 1000,
+      });
+    },
+    error=> {
+      this.matSnackBar.open("Could not retrieve the duration", "Error", {
+        duration: 1000,
+      });
+    })
   }
 
 }
