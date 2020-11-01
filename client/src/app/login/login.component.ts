@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {HapiService} from '../hapi.service';
 import {store, loginUser} from '../store'; 
 import { User } from '../store/User';
+import {MatSnackBar} from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-login',
@@ -19,13 +21,16 @@ export class LoginComponent implements OnInit {
   
   constructor(
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
     private router: Router,
-    private hapiService: HapiService
+    private hapiService: HapiService,
+    private matSnackBar: MatSnackBar
 ) { }
 
 
   ngOnInit(): void {
+    if(store.getState().loggedUser) {
+      this.router.navigate(["home"]);
+    }
     this.form = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -36,11 +41,11 @@ export class LoginComponent implements OnInit {
 
 
   onSubmit(event: any) {
-    //TODO see if we still need it.
     this.submitted = true;
     if (this.form.invalid) {
         return;
     }
+    this.loading = true;
     this.hapiService.checkBackendHealth()
       .subscribe(response => {
         const status = response.status;
@@ -50,10 +55,14 @@ export class LoginComponent implements OnInit {
           const user = <User>{username, password};
           store.dispatch(loginUser(user));
           this.router.navigate(['home'])
+          this.loading = false;
         }
       },
       error => {
-        alert(`We cannot log you in at the moment. Status: ${status}`);
+        this.loading = false;
+        this.matSnackBar.open("Something bad happened. Try again later", "Error", {
+          duration: 2000,
+        });
       })
 }
 
