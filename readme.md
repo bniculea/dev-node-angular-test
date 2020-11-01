@@ -31,11 +31,16 @@
      - Here the user is able to see how much time it took the server to aggregate the entire collection, in high resolution milliseconds
 - As soon as the user is logged in, the navigation bar should display the name of the logged in user and also the logout button
 
-### Dockerization
+#### Dockerization
 
 - The client app will be dockerized and it will run in a Nginx server instance.
 - The docker image resulted will be a combination of two base images, namely the `node:12` image and the `nginx` image.
 - The server will simply run the static files generated after running the `build` command in `production` mode.
+
+#### Local run
+
+- In order to run this application on your local machine, make sure that you are in the `client` folder and then run `ng serve --open`.
+  - I do recomend to run by following the guidelines in the [Step by step section](<#step-by-step-running-procedure-(docker-only)>))
 
 ### The **Server** application
 
@@ -166,3 +171,6 @@
 2. Make sure that Docker is up and running (maybe play with a simple command like `docker ps -a` which will display all the containers that are running and/or stopped)
 3. `cd` into the root folder. Note: you have to be at the same level with the `docker-compose.yml` file.
 4. Build the docker images by running `docker-compose build`.
+5. Run `docker-compose up` in your favorit terminal/cli
+6. When the docker-compose has finished its job go and visit the `http://localhost:9000` endpoint in your browser.
+   Note: If you want to see the data which is currently persisted in the database, visit `http://localhost:8888` and open the `test` database and then the `users` collection.
