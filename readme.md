@@ -91,7 +91,7 @@
       }
       ```
 
-### Data model
+#### Data model
 
 - The data model of this application is very simple.
 - There is only one entity present in the database and has the following schema:
@@ -112,22 +112,27 @@
 - The aggregation of the data inside the `users` collection is very simple and it will perform the following logic:
   - It will calculate the age of the people from each country and then it will see if the population is mostly young (below 50 years as age) or older (above 50 years as age).
 
-### HapiJS plugins
+#### HapiJS plugins
 
 - The Server applications makes use of two HapiJS plugin, one created by me and another one used for allowing CORS (or more exactly, disabling it :) ).
 - My plugin will contain all the routes explained above.
 
-### Connection to the Database
+#### Connection to the Database
 
 - The Server connects to the MongoDB database using the Mongoose ORM
 - Apart from connecting to the MongoDB, Mongoose also helps in defining the Schema of the `User` entity.
 
-### Dockerization
+#### Dockerization
 
 - The Server application is dockerized in a docker image starting from the `node` base image
   - Also, the docker image exposes the 3000 port which will be the port on which the application is running inside the `container`
 
-## Docker-Compose
+#### Local run
+
+- In order to run this application on your local machine, make sure that you are in the `server` folder and then run `node ./index.js`.
+  - I do recomend to run by following the guidelines in the [Step by step section](<#step-by-step-running-procedure-(docker-only)>))
+
+### Docker-Compose
 
 - The docker-compose.yml file contains the definition of the following services:
   - `mongo`
@@ -149,7 +154,7 @@
 
 ## 2. How to run
 
-## Tools needed
+### Tools needed
 
 - There are two ways to run this project in your local machine:
 
@@ -165,7 +170,7 @@
   - Angular CLI (for the client application)
   - Docker (this is needed in order to fire up a mongo container)
 
-## Step by step running procedure (docker-only)
+### Step by step running procedure (docker-only)
 
 1. Clone this repository
 2. Make sure that Docker is up and running (maybe play with a simple command like `docker ps -a` which will display all the containers that are running and/or stopped)
@@ -174,3 +179,20 @@
 5. Run `docker-compose up` in your favorit terminal/cli
 6. When the docker-compose has finished its job go and visit the `http://localhost:9000` endpoint in your browser.
    Note: If you want to see the data which is currently persisted in the database, visit `http://localhost:8888` and open the `test` database and then the `users` collection.
+
+## 3. Known problems and limitations
+
+- Limitations:
+
+  1. Hardcoded ports
+
+     - Currently, the ports used by the pieces of this project are hardcoded in the docker-compose file.
+       - If you already have something which runs on a port used by the docker images, either stop it or manually change the port in the `docker-compose.yml` file
+     - The improvement which can be done here is to read the ports from environment variables.
+
+  2. Logged user is lost on refresh.
+     - The logged user is not persisted and it will be lost if the user refreshes the page.
+
+- Bugs:
+  1.  404 on existing page:
+      - Currently there is a bug, if the user refreshes the page and it is on another path, other than root (e.g localhost:9000/landing) a 404 page not found will be thrown. The workaround is to navigate back at the root page.
