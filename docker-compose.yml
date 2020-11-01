@@ -33,6 +33,8 @@ services:
     image: client-app
     ports:
       - 9000:80
+    networks:
+      - application-network
 networks:
   application-network:
     driver: bridge
