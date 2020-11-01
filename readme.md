@@ -158,17 +158,23 @@
 
 - There are two ways to run this project in your local machine:
 
-  - as docker containers (the recommended way):
-  - Git (to clone the repository)
-  - [Docker](https://docs.docker.com/docker-for-windows/install/) and [Docker Compose](https://docs.docker.com/docker-for-windows/install/)
-  - A Modern browser (I am looking at you, IE!!)
+  1. As docker containers (the recommended way):
+  2. Run each part individually.
 
-- But if you want to run each part individually, you will need the following tools:
-  - Git
-  - Node and Npm
-  - A text editor (preferrably an IDE. ps: Visual Studio rocks!)
-  - Angular CLI (for the client application)
-  - Docker (this is needed in order to fire up a mongo container)
+- Below, you have the list of tools needed for each method
+
+  - As docker containers (the recommended way):
+
+    - Git (to clone the repository)
+    - [Docker](https://docs.docker.com/docker-for-windows/install/) and [Docker Compose](https://docs.docker.com/docker-for-windows/install/)
+    - A Modern browser (I am looking at you, IE!!)
+
+  - Run each part individually.
+    - Git
+    - Node and Npm
+    - A text editor (preferrably an IDE. ps: Visual Studio rocks!)
+    - Angular CLI (for the client application)
+    - Docker (this is needed in order to fire up a mongo container)
 
 ### Step by step running procedure (docker-only)
 
@@ -178,7 +184,7 @@
 4. Build the docker images by running `docker-compose build`.
 5. Run `docker-compose up` in your favorit terminal/cli
 6. When the docker-compose has finished its job go and visit the `http://localhost:9000` endpoint in your browser.
-   Note: If you want to see the data which is currently persisted in the database, visit `http://localhost:8888` and open the `test` database and then the `users` collection.
+   Note: If you want to see the data which is currently persisted in the database, visit `http://localhost:8888` and open the `users` collection from the `test`.
 
 ## 3. Known problems and limitations
 
@@ -191,8 +197,4 @@
      - The improvement which can be done here is to read the ports from environment variables.
 
   2. Logged user is lost on refresh.
-     - The logged user is not persisted and it will be lost if the user refreshes the page.
-
-- Bugs:
-  1.  404 on existing page:
-      - Currently there is a bug, if the user refreshes the page and it is on another path, other than root (e.g localhost:9000/landing) a 404 page not found will be thrown. The workaround is to navigate back at the root page.
+     - The logged user is not persisted and it will be lost if the user refreshes the page. This is because our state is not persisted.
