@@ -14,6 +14,12 @@ const start = async function () {
     {
       plugin: require("./defaultRoutes"),
     },
+    {
+      plugin: require("hapi-cors"),
+      options: {
+        origins: ["*"],
+      },
+    },
   ]);
   await server.start();
 

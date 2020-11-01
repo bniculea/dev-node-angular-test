@@ -16,6 +16,8 @@ import {MatMenuModule} from '@angular/material/menu'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GenerateDataComponent } from './generate-data/generate-data.component';
+import { PerformanceCheckPageComponent } from './performance-check-page/performance-check-page.component';
 
 
 
@@ -27,6 +29,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     LoginComponent,
     LandingPageComponent,
     ToolbarComponent,
+    GenerateDataComponent,
+    PerformanceCheckPageComponent,
   ],
   imports: [
     BrowserModule,

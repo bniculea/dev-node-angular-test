@@ -29,5 +29,12 @@ export class ToolbarComponent implements OnInit {
     this.isUserLoggedIn = !!state.loggedUser;
     this.loggedUser = this.isUserLoggedIn ? state.loggedUser.username : null;
   }
+  onGenerateDataClick(){
+    this.router.navigate(['generate']);
+  }
+
+  onDurationCheckClick(){
+    this.router.navigate(['performanceCheck']);
+  }
 
 }

@@ -1,11 +1,11 @@
 <mat-toolbar class="bg-info">
   <mat-toolbar-row>
-    <button mat-icon-button class="mr-2 btn btn-dark" aria-label="Example icon-button with menu icon" mat-button [matMenuTriggerFor]="menu">
+    <button *ngIf="this.isUserLoggedIn" mat-icon-button class="mr-2 btn btn-dark" aria-label="Example icon-button with menu icon" mat-button [matMenuTriggerFor]="menu">
       <mat-icon aria-hidden="false" aria-label="Example home icon">menu</mat-icon>
     </button>
-    <mat-menu #menu="matMenu" class="mt-10  bg-dark">
-      <button  mat-menu-item>Generate Data</button>
-      <button  mat-menu-item>View duration</button>
+    <mat-menu  #menu="matMenu" class="mt-10  bg-dark">
+      <button  mat-menu-item (click)="onGenerateDataClick()">Generate Data</button>
+      <button  mat-menu-item (click)="onDurationCheckClick()">View duration</button>
     </mat-menu>
     <span>My application</span>
     <span class="spacer"></span>

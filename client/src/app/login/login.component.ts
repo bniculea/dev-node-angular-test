@@ -50,9 +50,10 @@ export class LoginComponent implements OnInit {
           const user = <User>{username, password};
           store.dispatch(loginUser(user));
           this.router.navigate(['home'])
-        }else {
-          alert(`buba: ${status}`);
         }
+      },
+      error => {
+        alert(`We cannot log you in at the moment. Status: ${status}`);
       })
 }
 

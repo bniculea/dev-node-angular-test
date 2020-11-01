@@ -4,9 +4,6 @@ import { Injectable } from '@angular/core';
 import { Config } from 'protractor';
 import { Observable } from 'rxjs';
 
-const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
 
   @Injectable({ providedIn: 'root' })
   export class HapiService{
@@ -18,5 +15,10 @@ const httpOptions = {
         const url = `${this.backendApi}/health`;
         return this.http.get<Config>(
             url, {observe: 'response'});
+    }
+
+    generateData(): Observable<HttpResponse<Config>> {
+      const url = `${this.backendApi}/create`;
+      return this.http.post<Config>(url,{}, {observe:'response'});
     }
 }
