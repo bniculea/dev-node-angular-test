@@ -1,0 +1,15 @@
+<mat-toolbar class="bg-info">
+  <mat-toolbar-row>
+    <button *ngIf="this.isUserLoggedIn" mat-icon-button class="mr-2 btn btn-dark" aria-label="Example icon-button with menu icon" mat-button [matMenuTriggerFor]="menu">
+      <mat-icon aria-hidden="false" aria-label="Example home icon">menu</mat-icon>
+    </button>
+    <mat-menu  #menu="matMenu" class="mt-10  bg-dark">
+      <button  mat-menu-item (click)="onGenerateDataClick()">Generate Data</button>
+      <button  mat-menu-item (click)="onDurationCheckClick()">View duration</button>
+    </mat-menu>
+    <span>My application</span>
+    <span class="spacer"></span>
+    <span *ngIf="this.isUserLoggedIn">Logged as: {{loggedUser}}</span>
+    <button *ngIf="this.isUserLoggedIn" class="ml-2 btn btn-dark" (click)="onLogoutClick()" mat-button>Logout</button>
+  </mat-toolbar-row>
+  </mat-toolbar>

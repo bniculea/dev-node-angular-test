@@ -17,9 +17,11 @@ const defaultRoutes = {
       path: "/health",
       handler: async (req, h) => {
         if (Mongoose.connection.readyState === 1) {
-          return h.response("OK").code(200);
+          const response = { mongoState: "UP" };
+          return h.response(response).code(200);
         } else {
-          return h.response().code(503);
+          const response = { mongoState: "DOWN" };
+          return h.response(response).code(503);
         }
       },
     });
@@ -30,9 +32,13 @@ const defaultRoutes = {
       handler: async (req, h) => {
         try {
           await User.insertMany(generateRandomUsers());
-          return h.response("CREATED").code(201);
+          const response = { message: "Successfully generated data" };
+          return h.response(response).code(201);
         } catch (err) {
-          return h.response("COULD NOT CREATE").code(503);
+          const response = {
+            message: "There was a problem while generating data",
+          };
+          return h.response(response).code(503);
         }
       },
     });
@@ -45,13 +51,15 @@ const defaultRoutes = {
           const t0 = performance.now();
           const _ = await computeAverageOfAgePerUserCountry();
           const t1 = performance.now();
-          return h.response(t1 - t0).code(200);
+          const durationTime = t1 - t0;
+          const response = { duration: durationTime };
+          return h.response(response).code(200);
         } catch (err) {
-          return h
-            .response(
-              "Something bad happened on our side! Please try again later."
-            )
-            .code(503);
+          const response = {
+            message:
+              "Something bad happened on our side! Please try again later.",
+          };
+          return h.response(response).code(503);
         }
       },
     });
